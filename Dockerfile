@@ -4,8 +4,8 @@ WORKDIR $GOPATH/src/bbb
 COPY . .
 
 RUN apk add --no-cache git && set -x && \
-    go mod init && go get -d -v
-RUN CGO_ENABLED=1 GOOS=linux go build -o /bbb bbb.go
+    go mod init && go get -v github.com/gen2brain/go-unarr
+RUN CGO_ENABLED=0 GOOS=linux go build -o /bbb bbb.go
 
 
 FROM alpine:latest
