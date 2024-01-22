@@ -4,7 +4,7 @@ WORKDIR $GOPATH/src/bbb
 COPY . .
 
 RUN apk add --no-cache git && set -x && \
-    go mod tidy && go install github.com/gen2brain/go-unarr@latest
+    go mod init &go mod tidy && go install github.com/gen2brain/go-unarr@latest
 RUN CGO_ENABLED=0 GOOS=linux go build -o /bbb bbb.go
 
 FROM alpine:latest
