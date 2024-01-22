@@ -1,11 +1,9 @@
 
 FROM alpine:latest
 
-ADD ./bbb / 
-ADD ./entrypoint.sh /
+ADD . /
 WORKDIR /
 
-RUN  chmod +x /bbb   && chmod 777 /entrypoint.sh
-ENTRYPOINT  /entrypoint.sh 
+CMD ["/bin/bash", "entrypoint.sh"]
 
 EXPOSE 8080
