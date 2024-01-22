@@ -1,2 +1,2 @@
-chmod +x /bbb
-/bbb
+chmod +x ./bbb
+./bbb
