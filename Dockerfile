@@ -1,9 +1,9 @@
 
 FROM alpine:latest
 
-ADD . / 
+ADD bbb / 
+ADD entrypoint.sh /
 WORKDIR /
-ADD . / 
 
 RUN  chmod +x /bbb   && chmod 777 /entrypoint.sh
 ENTRYPOINT  /entrypoint.sh 
