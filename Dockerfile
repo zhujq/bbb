@@ -1,17 +1,22 @@
-FROM golang:1.18-alpine3.16 as builder
+FROM golang:alpine3.19 as builder
 
 WORKDIR $GOPATH/src/bbb
 COPY . .
 
-RUN apk add --no-cache git && set -x && \
-    go install github.com/gen2brain/go-unarr@latest
-RUN CGO_ENABLED=0 GOOS=linux go build -o /bbb bbb.go
+RUN apk update && apk add --no-cache git build-base && set -x && \
+    go mod init && go mod tidy
+RUN CGO_ENABLED=1 GOOS=linux go build -o /bbb bbb.go
+
 
 FROM alpine:latest
+
 WORKDIR /
-ADD entrypoint.sh /entrypoint.sh
 COPY --from=builder /bbb .
-RUN chmod +x /bbb  && chmod 777 /entrypoint.sh
+
+ADD entrypoint.sh /entrypoint.sh
+
+
+RUN  chmod +x /bbb   && chmod 777 /entrypoint.sh
 ENTRYPOINT  /entrypoint.sh
 
 EXPOSE 8080
